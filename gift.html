@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff7f5">
+  <title>A little gift</title>
+  <style>
+    :root {
+      font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+      color: #49333a;
+      background: #fff7f5;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(ellipse at 12% 18%, #ffe6e2 0, transparent 27rem),
+        radial-gradient(ellipse at 90% 86%, #fce4ed 0, transparent 30rem),
+        #fff7f5;
+    }
+
+    main {
+      width: min(100%, 480px);
+      padding: clamp(32px, 8vw, 56px) 28px;
+      border: 1px solid rgb(255 255 255 / 85%);
+      border-radius: 30px;
+      background: rgb(255 255 255 / 82%);
+      box-shadow: 0 24px 80px rgb(111 54 73 / 12%);
+      text-align: center;
+    }
+
+    .flower {
+      width: clamp(140px, 42vw, 220px);
+      height: clamp(140px, 42vw, 220px);
+      margin: 0 0 12px;
+      object-fit: contain;
+      -webkit-mask-image: radial-gradient(ellipse, #000 66%, transparent 100%);
+      mask-image: radial-gradient(ellipse, #000 66%, transparent 100%);
+    }
+
+    h1 {
+      margin: 0;
+      color: #49333a;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.2rem, 9vw, 3rem);
+      font-weight: 500;
+    }
+
+    .hint {
+      margin: 10px 0 22px;
+      color: #846e74;
+      line-height: 1.6;
+    }
+
+    .envelope {
+      position: relative;
+      width: 100px;
+      height: 68px;
+      margin: 0 auto;
+      display: block;
+      border: 2px solid #bd6b7b;
+      border-radius: 9px;
+      background: #fff0ee;
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .envelope:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 18px rgb(189 107 123 / 20%);
+    }
+
+    .envelope:focus-visible,
+    a:focus-visible {
+      outline: 3px solid #49333a;
+      outline-offset: 4px;
+    }
+
+    .envelope::before,
+    .envelope::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+    }
+
+    .envelope::before {
+      background: linear-gradient(145deg, transparent 49%, #e7aab0 50%) left / 50% 100% no-repeat,
+                  linear-gradient(215deg, transparent 49%, #e7aab0 50%) right / 50% 100% no-repeat;
+      border-radius: 0 0 7px 7px;
+    }
+
+    .envelope::after {
+      top: -2px;
+      bottom: auto;
+      height: 36px;
+      background: #f5c9cc;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top;
+      transition: transform 240ms ease;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 24px;
+      color: #a36572;
+      text-underline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <img class="flower" src="gift-flower.gif" alt="A flower">
+    <h1>I'm sorry baby ):</h1>
+    <p class="hint">I picked you a flower. Here's a letter too...</p>
+    <button class="envelope" id="envelope" type="button" aria-label="Open the letter"></button>
+    <a href="index.html">Go back</a>
+  </main>
+  <script>
+    const envelope = document.querySelector("#envelope");
+
+    envelope.addEventListener("click", () => {
+      window.location.assign("message.html");
+    });
+  </script>
+</body>
+</html>

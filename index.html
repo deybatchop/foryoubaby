@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff7f5">
+  <title>A little question</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+      color: #49333a;
+      background: #fff7f5;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 12% 18%, #ffe6e2 0, transparent 27rem),
+        radial-gradient(ellipse at 90% 86%, #fce4ed 0, transparent 30rem),
+        #fff7f5;
+    }
+
+    .page {
+      position: relative;
+      width: min(100% - 32px, 560px);
+      padding: 28px 0;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      padding: clamp(32px, 8vw, 60px) clamp(24px, 8vw, 64px);
+      border: 1px solid rgb(255 255 255 / 85%);
+      border-radius: 30px;
+      background: rgb(255 255 255 / 82%);
+      box-shadow: 0 24px 80px rgb(111 54 73 / 12%);
+      text-align: center;
+      backdrop-filter: blur(12px);
+    }
+
+    .cat-image {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 28px;
+      display: block;
+      border-radius: 16px;
+      object-fit: cover;
+      box-shadow: 0 5px 16px rgb(191 82 103 / 18%);
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: #b46c78;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: #49333a;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.4rem, 9vw, 3.8rem);
+      font-weight: 500;
+      letter-spacing: -0.055em;
+      line-height: 1.08;
+    }
+
+    .message {
+      max-width: 350px;
+      min-height: 3.5em;
+      margin: 20px auto 30px;
+      color: #846e74;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .choices {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    button {
+      min-width: 132px;
+      min-height: 52px;
+      padding: 12px 24px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font: inherit;
+      font-size: 0.98rem;
+      font-weight: 650;
+      cursor: pointer;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+
+    button:focus-visible {
+      outline: 3px solid #49333a;
+      outline-offset: 4px;
+    }
+
+    .yes {
+      background: #bd6b7b;
+      color: white;
+      box-shadow: 0 8px 18px rgb(189 107 123 / 25%);
+    }
+
+    .yes:hover {
+      background: #a95768;
+      box-shadow: 0 11px 22px rgb(189 107 123 / 32%);
+    }
+
+    .no {
+      border-color: #eadadd;
+      background: white;
+      color: #775e65;
+      transition: transform 180ms ease, opacity 180ms ease, background 160ms ease;
+    }
+
+    .no.is-shrinking {
+      transform: scale(var(--shrink-scale, 1));
+    }
+
+    .no.is-shrinking:hover {
+      transform: scale(var(--shrink-scale, 1)) translateY(-2px);
+    }
+
+    .no:hover {
+      background: #fff8f7;
+    }
+
+    .reset {
+      margin-top: 20px;
+      padding: 8px 12px;
+      border: 0;
+      background: transparent;
+      color: #a36572;
+      font-size: 0.9rem;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .reset:hover {
+      transform: none;
+      color: #75434e;
+    }
+
+    .sparkle {
+      position: absolute;
+      color: #df9da5;
+      user-select: none;
+    }
+
+    .sparkle-one {
+      top: 8%;
+      left: 2%;
+      font-size: 1.5rem;
+    }
+
+    .sparkle-two {
+      right: 0;
+      bottom: 13%;
+      font-size: 2rem;
+    }
+
+    .sparkle-three {
+      top: 19%;
+      right: 4%;
+      color: #e8c18c;
+      font-size: 1.15rem;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    @media (max-width: 420px) {
+      .choices {
+        flex-direction: row;
+      }
+
+      button {
+        min-width: 0;
+        flex: 1;
+        padding-inline: 12px;
+      }
+
+      .reset {
+        width: auto;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <span class="sparkle sparkle-one" aria-hidden="true">✦</span>
+    <span class="sparkle sparkle-two" aria-hidden="true">♡</span>
+    <span class="sparkle sparkle-three" aria-hidden="true">✧</span>
+
+    <section class="card" aria-labelledby="question">
+      <img class="cat-image" src="cat.gif" alt="A cute cat looking up">
+
+      <h1 id="question">Hello baby!</h1>
+      <p class="message" id="message" aria-live="polite">
+        Would you like to see your gift and forgive me? ):
+      </p>
+
+      <div class="choices" id="choices">
+        <button class="yes" type="button" data-answer="yes">Yes</button>
+        <button class="no" type="button" data-answer="no">No</button>
+      </div>
+      <button class="reset" id="reset" type="button" hidden>Go back</button>
+    </section>
+  </main>
+
+  <script>
+    const question = document.querySelector("#question");
+    const message = document.querySelector("#message");
+    const choices = document.querySelector("#choices");
+    const reset = document.querySelector("#reset");
+    const noButton = choices.querySelector('[data-answer="no"]');
+    let noPresses = 0;
+
+    function showQuestion() {
+      question.textContent = "Hello baby!";
+      message.textContent = "Would you like to see your gift and forgive me? ):";
+      choices.hidden = false;
+      reset.hidden = true;
+      noPresses = 0;
+      noButton.hidden = false;
+      noButton.classList.remove("is-shrinking");
+      noButton.style.removeProperty("--shrink-scale");
+      noButton.style.removeProperty("opacity");
+      choices.querySelector(".yes").focus();
+    }
+
+    choices.addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-answer]");
+      if (!button) return;
+
+      if (button.dataset.answer === "no") {
+        noPresses += 1;
+        if (noPresses === 6) {
+          window.location.assign("please.html");
+          return;
+        }
+
+        const scale = Math.pow(0.72, noPresses);
+        noButton.classList.add("is-shrinking");
+        noButton.style.setProperty("--shrink-scale", scale);
+
+        if (scale < 0.15) {
+          noButton.style.opacity = "0";
+          window.setTimeout(() => {
+            noButton.hidden = true;
+          }, 180);
+        }
+        return;
+      }
+
+      window.location.assign("gift.html");
+    });
+
+    reset.addEventListener("click", () => {
+      showQuestion();
+    });
+  </script>
+</body>
+</html>
